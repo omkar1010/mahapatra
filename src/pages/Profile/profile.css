@@ -1,0 +1,33 @@
+.card-profile-stats img{
+    max-width: 200px;
+    border-radius: 100%;
+    border: 1px solid #111;
+}
+
+.email{
+    color: rgb(238,101,122);
+}
+
+.location{
+    color: blue;
+}
+
+.calendar{
+    color: rebeccapurple;
+}
+
+.left{
+    
+     /* height: 100%;
+    width: 30%; */
+    border-right: 1px solid black;
+    /* display: inline-block;  */
+
+}
+
+/* .right{
+    height: 100%;
+    width: 70%;
+    border: 1px solid red;
+    display: inline-block;
+} */
