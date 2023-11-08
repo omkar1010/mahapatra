@@ -35,7 +35,8 @@ const Tables = ({ userdata, deleteUser, userGet, handlePrevious, handleNext, pag
                   <tr className='table-dark'>
                     <th>SR NO</th>
                     <th>FullName</th>
-                    <th>Email</th>
+                    {/* <th>Email</th> */}
+                    <th>Mobile No</th>
                     <th>Gender</th>
                     <th>&nbsp;&nbsp;&nbsp;Status</th>
                     <th>Profile</th>
@@ -50,7 +51,8 @@ const Tables = ({ userdata, deleteUser, userGet, handlePrevious, handleNext, pag
                           <tr>
                             <td>{index + 1 + (page - 1)*4}</td> 
                             <td>{element.fname+ " " + element.lname}</td>
-                            <td>{element.email}</td>
+                            {/* <td>{element.email}</td> */}
+                            <td>{element.mobile}</td>
                             <td>{element.gender == "Male" ? "M" : "F"}</td>
                             <td className='d-flex align-items-center'>
                               <Dropdown className='text-center'>
@@ -79,7 +81,7 @@ const Tables = ({ userdata, deleteUser, userGet, handlePrevious, handleNext, pag
                                       <i class="fa-solid fa-eye" style={{ color: "green" }}></i> <span>View</span>
                                     </NavLink>
                                   </Dropdown.Item>
-                                  {/* <Dropdown.Item >
+                                  <Dropdown.Item >
                                     <NavLink to={`/edit/${element._id}`} className="text-decoration-none">
                                       <i class="fa-solid fa-pen-to-square" style={{ color: "blue" }}></i> <span>Edit</span>
                                     </NavLink>
@@ -88,7 +90,7 @@ const Tables = ({ userdata, deleteUser, userGet, handlePrevious, handleNext, pag
                                     <div onClick={() => deleteUser(element._id)}>
                                       <i class="fa-solid fa-trash" style={{ color: "red" }}></i> <span>Delete</span>
                                     </div>
-                                  </Dropdown.Item> */}
+                                  </Dropdown.Item>
                                 </Dropdown.Menu>
                               </Dropdown>
                             </td>

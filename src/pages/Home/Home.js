@@ -32,7 +32,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const adduser = () => {
-    navigate("/Register")
+    navigate("/")
   }
 
   // get user

@@ -117,10 +117,6 @@ const Register = () => {
       toast.error("First name is Required !")
     } else if (lname === "") {
       toast.error("Last name is Required !")
-    } else if (email === "") {
-      toast.error("Email is Required !")
-    } else if (!email.includes("@")) {
-      toast.error("Enter Valid Email !")
     }else if(mothername === ""){
         toast.error("Mother name is required")
     } else if (mobile === "") {
@@ -213,7 +209,7 @@ const Register = () => {
         setStatus("");
         setImage("");
         setUseradd(response.data)
-        navigate("/");
+        navigate("/Home");
       }else{
         toast.error("data already exists with same emailid or PhoneNo")
       }
@@ -277,10 +273,10 @@ const Register = () => {
                   <Form.Label>Education</Form.Label>
                   <Form.Control type="text" name='Education' value={inputdata.Education} onChange={setInputValue} placeholder='Enter Education' />
                 </Form.Group>
-                <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
+                {/* <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
                   <Form.Label>Email Address</Form.Label>
                   <Form.Control type="email" name='email' value={inputdata.email} onChange={setInputValue} placeholder='Enter Email' />
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
                   <Form.Label>Mobile</Form.Label>
                   <Form.Control type="text" name='mobile' value={inputdata.mobile} onChange={setInputValue} placeholder='Enter Mobile' />
@@ -293,10 +289,7 @@ const Register = () => {
                   <Form.Label>Brother/Husband Name</Form.Label>
                   <Form.Control type="text" name='Husband' value={inputdata.Husband} onChange={setInputValue} placeholder='Enter Wife/Husband Name' />
                 </Form.Group> */}
-                <Form.Group className="mb-3 col-lg-6" controlId="formB`asicEmail">
-                  <Form.Label>Reason for InActive</Form.Label>
-                  <Form.Control type="text" name='Reason' value={inputdata.Reason} onChange={setInputValue} placeholder='Enter Reason for InActive' />
-                </Form.Group>
+              
                 <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
                   <Form.Label>Select Your Gender</Form.Label>
                   <Form.Check
@@ -335,7 +328,7 @@ const Register = () => {
 
 
                 <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
-                  <Form.Label>ANGANWADI Beneficial</Form.Label>
+                  <Form.Label>ANGANWADI Beneficiary</Form.Label>
                   <Form.Check
                     type={"radio"}
                     label={`Yes`}
@@ -373,7 +366,7 @@ const Register = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
-                  <Form.Label>MGNREGA Beneficial</Form.Label>
+                  <Form.Label>MGNREGA Beneficiary</Form.Label>
                   <Form.Check
                     type={"radio"}
                     label={`Yes`}
@@ -411,6 +404,11 @@ const Register = () => {
                 <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
                   <Form.Label>Select Your Status</Form.Label>
                   <Select options={options}  onChange={setStatusValue} />
+                </Form.Group>
+
+                <Form.Group className="mb-3 col-lg-6" controlId="formB`asicEmail">
+                  <Form.Label>Reason for InActive</Form.Label>
+                  <Form.Control type="text" name='Reason' value={inputdata.Reason} onChange={setInputValue} placeholder='Enter Reason for InActive' />
                 </Form.Group>
 
                 
@@ -473,21 +471,36 @@ const Register = () => {
                       </Form.Group>
 
                       <Form.Group controlId={`sonAge${index}`}>
-                        <Form.Label>Age of Son {index + 1}</Form.Label>
-                        <Form.Control
-                          type="number"
-                          value={son.age}
-                          onChange={(e) => {
-                            const updatedSonDetails = [...inputdata.sonDetails];
-                            updatedSonDetails[index] = {
-                              ...updatedSonDetails[index],
-                              age: e.target.value,
-                            };
-                            setSonDetails(updatedSonDetails);
-                          }}
-                          placeholder={`Enter Age of Son ${index + 1}`}
-                        />
-                      </Form.Group>
+  <Form.Label>Age of Son {index + 1}</Form.Label>
+  <Form.Control
+    type="number"
+    value={son.age}
+    onChange={(e) => {
+      // Parse the input value as an integer
+      const inputValue = parseInt(e.target.value, 10);
+      
+      // Check if the input value is greater than or equal to 0
+      if (!isNaN(inputValue) && inputValue >= 0) {
+        const updatedSonDetails = [...inputdata.sonDetails];
+        updatedSonDetails[index] = {
+          ...updatedSonDetails[index],
+          age: inputValue, // Assign the valid input value
+        };
+        setSonDetails(updatedSonDetails);
+      } else {
+        // If input is less than 0, reset the value to 0
+        const updatedSonDetails = [...inputdata.sonDetails];
+        updatedSonDetails[index] = {
+          ...updatedSonDetails[index],
+          age: 0, // Reset value to 0
+        };
+        setSonDetails(updatedSonDetails);
+      }
+    }}
+    placeholder={`Enter Age of Son ${index + 1}`}
+  />
+</Form.Group>
+
                     </div>
                   ))}
                 </div>
@@ -498,7 +511,7 @@ const Register = () => {
 
 
 <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
-  <Form.Label>Number of Brothers/Sisters</Form.Label>
+  <Form.Label>Number of Siblings</Form.Label>
   <Form.Control
     type="number"
     name="numberOfBrothers"
@@ -521,7 +534,7 @@ const Register = () => {
         ),
       });
     }}
-    placeholder="Enter Number of Brothers/Sisters"
+    placeholder="Enter Number of Siblings"
   />
 </Form.Group>
 
@@ -531,7 +544,7 @@ const Register = () => {
                   {inputdata.brotherDetails.map((brother, index) => (
                     <div className="col-lg-6" key={index}>
                       <Form.Group controlId={`brotherName${index}`}>
-                        <Form.Label>Name of Brother {index + 1}</Form.Label>
+                        <Form.Label>Name of Siblings {index + 1}</Form.Label>
                         <Form.Control
                           type="text"
                           value={brother.name}
@@ -543,12 +556,12 @@ const Register = () => {
                             };
                             setBrotherDetails(updatedBrotherDetails);
                           }}
-                          placeholder={`Enter Name of Brother ${index + 1}`}
+                          placeholder={`Enter Name of Siblings ${index + 1}`}
                         />
                       </Form.Group>
 
-                      <Form.Group controlId={`brotherAge${index}`}>
-                        <Form.Label>Age of Brother {index + 1}</Form.Label>
+                      {/* <Form.Group controlId={`brotherAge${index}`}>
+                        <Form.Label>Age of Siblings {index + 1}</Form.Label>
                         <Form.Control
                           type="number"
                           value={brother.age}
@@ -560,9 +573,43 @@ const Register = () => {
                             };
                             setBrotherDetails(updatedBrotherDetails);
                           }}
-                          placeholder={`Enter Age of Brother ${index + 1}`}
+                          placeholder={`Enter Age of Siblings ${index + 1}`}
                         />
-                      </Form.Group>
+                      </Form.Group> */}
+
+<Form.Group controlId={`brotherAge${index}`}>
+  <Form.Label>Age of Siblings {index + 1}</Form.Label>
+  <Form.Control
+    type="number"
+    value={brother.age}
+    onChange={(e) => {
+      // Parse the input value as an integer
+      const inputValue = parseInt(e.target.value, 10);
+      
+      // Check if the input value is greater than or equal to 0
+      if (!isNaN(inputValue) && inputValue >= 0) {
+        const updatedBrotherDetails = [...inputdata.brotherDetails];
+        updatedBrotherDetails[index] = {
+          ...updatedBrotherDetails[index],
+          age: inputValue, // Assign the valid input value
+        };
+        setBrotherDetails(updatedBrotherDetails);
+      } else {
+        // If input is less than 0, reset the value to 0
+        const updatedBrotherDetails = [...inputdata.brotherDetails];
+        updatedBrotherDetails[index] = {
+          ...updatedBrotherDetails[index],
+          age: 0, // Reset value to 0
+        };
+        setBrotherDetails(updatedBrotherDetails);
+      }
+    }}
+    placeholder={`Enter Age of Siblings ${index + 1}`}
+  />
+</Form.Group>
+
+
+
                     </div>
                   ))}
                 </div>
